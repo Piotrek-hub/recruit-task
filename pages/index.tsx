@@ -1,7 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Sidebar from '../components/Sidebar';
-import HomePage from '../components/Home';
+import Shell from '../components/AppShell';
 
 const Home: NextPage = () => {
 	return (
@@ -15,10 +14,7 @@ const Home: NextPage = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<div className="w-screen flex justify-start">
-				<Sidebar />
-				<HomePage />
-			</div>
+			<Shell />
 		</div>
 	);
 };
