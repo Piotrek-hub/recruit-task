@@ -1,14 +1,22 @@
 import { ThemeIcon, Text, UnstyledButton, Group } from '@mantine/core';
 
+import { useRouter } from 'next/router';
+
 interface NavbarOptionProps {
 	icon: React.ReactNode;
 	color: string;
 	label: string;
+	link: string;
 }
 
-function NavbarOption({ icon, color, label }: NavbarOptionProps) {
+function NavbarOption({ icon, color, label, link }: NavbarOptionProps) {
+	const router = useRouter();
+
 	return (
 		<UnstyledButton
+			onClick={() => {
+				router.push(link);
+			}}
 			sx={(theme) => ({
 				display: 'block',
 				width: '100%',

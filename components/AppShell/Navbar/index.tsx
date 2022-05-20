@@ -1,7 +1,7 @@
 import { Navbar } from '@mantine/core';
 import NavbarOption from './NavbarOption';
 
-import { BiBook, BiStar, BiBookOpen, BiSearch } from 'react-icons/bi';
+import { BiBook, BiStar, BiBookOpen } from 'react-icons/bi';
 
 function Nav() {
 	return (
@@ -11,16 +11,19 @@ function Nav() {
 					icon={<BiBook />}
 					label={'Books'}
 					color={'blue'}
+					link={'/books'}
 				/>
 				<NavbarOption
 					icon={<BiStar />}
-					label={'Favorite'}
+					label={'Favorites'}
 					color={'orange'}
+					link={'/favorites'}
 				/>
 				<NavbarOption
 					icon={<BiBookOpen />}
 					label={'Reading'}
 					color={'pink'}
+					link={'/reading'}
 				/>
 			</Navbar.Section>
 		</Navbar>
