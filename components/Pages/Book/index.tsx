@@ -3,7 +3,8 @@ import { Card, Image, Group, Text, Badge, Button } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { BiStar } from 'react-icons/bi';
 import { Resource } from '../../../utils/interfaces';
-
+import { useDispatch } from 'react-redux';
+import { addFavorites } from '../../../redux/booksSlice';
 interface BookComponentInterface {
 	id: number;
 	title: string;
@@ -20,6 +21,7 @@ function Book({
 	resources,
 }: BookComponentInterface) {
 	const [image, setImage] = useState<string>();
+	const dispatch = useDispatch();
 	useEffect(() => {
 		const uris = resources.filter(
 			(resource) =>
@@ -33,6 +35,10 @@ function Book({
 			);
 		}
 	}, []);
+
+	const addToFavorites = () => {
+		dispatch(addFavorites(id));
+	};
 
 	return (
 		<div style={{ width: 340, margin: 'auto' }}>
@@ -57,7 +63,12 @@ function Book({
 					<Button variant="outline" color="blue" className="w-1/2">
 						Read
 					</Button>
-					<Button variant="light" color="red" className="w-1/3 ml-10">
+					<Button
+						variant="light"
+						color="red"
+						className="w-1/3 ml-10"
+						onClick={addToFavorites}
+					>
 						<BiStar />
 					</Button>
 				</div>

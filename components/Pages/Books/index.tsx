@@ -10,18 +10,22 @@ import Book from '../Book';
 
 function Books() {
 	const [books, setBooks] = useState<BookInterface[]>();
-	const [input, setInput] = useState<string>();
+	const [input, setInput] = useState<string>('');
+
+	useEffect(() => {
+		handleSearch();
+	}, []);
 
 	const handleSearch = () => {
 		getBooks(input).then((books: BookInterface[]) => setBooks(books));
 	};
+
 	return (
 		<div className="w-full">
 			<Title order={1} p="md">
 				Let's explore some books
 			</Title>
 			<div className="flex w-fill">
-				{/* #TODO: Filtry */}
 				<Input
 					icon={<BiSearch />}
 					placeholder="Book's Name"
@@ -47,7 +51,7 @@ function Books() {
 				</Text>
 			) : (
 				<Text className="text-xl mt-10">
-					Books found:{books?.length}
+					Books found:
 					<span className="font-bold">{books?.length}</span>
 				</Text>
 			)}
