@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { Button, Input, Title, Text } from '@mantine/core';
+import { Button, Input, Title, Text, Pagination } from '@mantine/core';
 import { BiSearch } from 'react-icons/bi';
 
-import { fetchBooks } from '../../../utils/api';
 import { BookInterface } from '../../../utils/interfaces';
 
 import Book from '../../Book';
@@ -11,13 +10,31 @@ import Book from '../../Book';
 function Books() {
 	const [books, setBooks] = useState<BookInterface[]>();
 	const [input, setInput] = useState<string>('');
+	const [activePage, setPage] = useState(1);
+
+	const handlePaginationChange = (page: any) => {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+		setPage(page);
+	};
 
 	useEffect(() => {
-		handleSearch();
-	}, [input]);
+		fetch(
+			`https://gnikdroy.pythonanywhere.com/api/book/?page=${activePage}&format=json`
+		)
+			.then((res) => res.json())
+			.then((data: { results: BookInterface[] }) => {
+				setBooks(data.results);
+			});
+	}, [activePage]);
 
 	const handleSearch = () => {
-		fetchBooks(input).then((books: BookInterface[]) => setBooks(books));
+		fetch(
+			`https://gnikdroy.pythonanywhere.com/api/book/?type=&title_contains=${input}`
+		)
+			.then((res) => res.json())
+			.then((data: { results: BookInterface[] }) => {
+				setBooks(data.results);
+			});
 	};
 
 	return (
@@ -36,11 +53,12 @@ function Books() {
 						setInput(e.target.value);
 					}}
 				/>
+
 				<Button
 					size="md"
 					color="teal"
 					variant="outline"
-					// onClick={handleSearch}
+					onClick={handleSearch}
 				>
 					Search
 				</Button>
@@ -55,7 +73,6 @@ function Books() {
 					<span className="font-bold">{books?.length}</span>
 				</Text>
 			)}
-
 			<div className="grid grid-cols-4 gap-2 mx-auto mt-[50px]">
 				{books?.map((book: BookInterface) => (
 					<Book
@@ -67,6 +84,18 @@ function Books() {
 						resources={book.resources}
 					/>
 				))}
+			</div>
+			<div className="flex align-center justify-around">
+				<Pagination
+					className="py-10 "
+					page={activePage}
+					onChange={handlePaginationChange}
+					total={6578}
+					color="dark"
+					size="xl"
+					radius="xs"
+					siblings={2}
+				/>
 			</div>
 		</div>
 	);
