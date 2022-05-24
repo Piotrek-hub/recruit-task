@@ -1,6 +1,6 @@
-import { ThemeIcon, Text, UnstyledButton, Group } from '@mantine/core';
-
 import { useRouter } from 'next/router';
+
+import { ThemeIcon, Text, UnstyledButton, Group } from '@mantine/core';
 
 interface NavbarOptionProps {
 	icon: React.ReactNode;

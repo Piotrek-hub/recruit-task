@@ -1,21 +1,19 @@
 import { useEffect, useState } from 'react';
 
-import { Button, Input, Title, Text, Pagination } from '@mantine/core';
+import { Button, Input, Title, Text, Pagination, Loader } from '@mantine/core';
 import { BiSearch } from 'react-icons/bi';
 
-import { BookInterface } from '../../../utils/interfaces';
+import { BookInterface } from '../../../types/interfaces';
 
 import Book from '../../Book';
 
 function Books() {
 	const [books, setBooks] = useState<BookInterface[]>();
-	const [input, setInput] = useState<string>('');
-	const [activePage, setPage] = useState(1);
 
-	const handlePaginationChange = (page: any) => {
-		window.scrollTo({ top: 0, behavior: 'smooth' });
-		setPage(page);
-	};
+	const [input, setInput] = useState<string>('');
+
+	const [activePage, setPage] = useState(1);
+	const [isDataLoaded, setDataLoaded] = useState<boolean>(false);
 
 	useEffect(() => {
 		fetch(
@@ -25,6 +23,7 @@ function Books() {
 			.then((data: { results: BookInterface[] }) => {
 				setBooks(data.results);
 			});
+		setDataLoaded(true);
 	}, [activePage]);
 
 	const handleSearch = () => {
@@ -35,10 +34,17 @@ function Books() {
 			.then((data: { results: BookInterface[] }) => {
 				setBooks(data.results);
 			});
+		setDataLoaded(true);
+	};
+
+	const handlePaginationChange = (page: any) => {
+		setDataLoaded(false);
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+		setPage(page);
 	};
 
 	return (
-		<div className="w-full">
+		<div className="w-full pl-[15%] pt-[3%]">
 			<Title order={1} p="md">
 				Let's explore some books
 			</Title>
@@ -73,30 +79,40 @@ function Books() {
 					<span className="font-bold">{books?.length}</span>
 				</Text>
 			)}
-			<div className="grid grid-cols-4 gap-2 mx-auto mt-[50px]">
-				{books?.map((book: BookInterface) => (
-					<Book
-						key={book.id}
-						id={book.id}
-						title={book.title}
-						subjects={book.subjects}
-						languages={book.languages}
-						resources={book.resources}
-					/>
-				))}
-			</div>
-			<div className="flex align-center justify-around">
-				<Pagination
-					className="py-10 "
-					page={activePage}
-					onChange={handlePaginationChange}
-					total={6578}
-					color="dark"
-					size="xl"
-					radius="xs"
-					siblings={2}
-				/>
-			</div>
+			{isDataLoaded === true ? (
+				<>
+					<div className="container grid grid-cols-4 gap-2 mx-auto mt-[50px] space-y-2 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1">
+						{books?.map((book: BookInterface) => (
+							<div className="w-full">
+								<Book
+									key={book.id}
+									id={book.id}
+									title={book.title}
+									subjects={book.subjects}
+									languages={book.languages}
+									resources={book.resources}
+								/>
+							</div>
+						))}
+					</div>
+					<div className="flex align-center justify-around">
+						<Pagination
+							className="py-10 "
+							page={activePage}
+							onChange={handlePaginationChange}
+							total={6578}
+							color="dark"
+							size="xl"
+							radius="xs"
+							siblings={2}
+						/>
+					</div>
+				</>
+			) : (
+				<div className=" flex justify-center items-center h-[50vh]">
+					<Loader size="xl" variant="dots" />
+				</div>
+			)}
 		</div>
 	);
 }

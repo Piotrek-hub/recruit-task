@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from './store';
 
-import { BookInterface } from '../utils/interfaces';
+import { BookInterface } from '../types/interfaces';
 
 interface BookSliceInterface {
 	favorites: number[];

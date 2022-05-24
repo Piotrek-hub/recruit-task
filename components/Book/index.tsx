@@ -1,10 +1,13 @@
-import { Card, Image, Text, Badge, Button } from '@mantine/core';
-
 import { useEffect, useState } from 'react';
-import { BiStar } from 'react-icons/bi';
-import { Resource } from '../../utils/interfaces';
-import { addFavorites } from '../../redux/booksSlice';
+
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { addFavorites } from '../../redux/booksSlice';
+
+import { Card, Image, Text, Badge, Button } from '@mantine/core';
+import { BiStar } from 'react-icons/bi';
+
+import { Resource } from '../../types/interfaces';
+
 interface BookComponentInterface {
 	id: number;
 	title: string;
@@ -16,6 +19,7 @@ interface BookComponentInterface {
 function Book({ id, title, subjects, resources }: BookComponentInterface) {
 	const [image, setImage] = useState<string>();
 	const [readUri, setReadUri] = useState<string>();
+
 	const favorites = useAppSelector((state) => state.books.favorites);
 	const dispatch = useAppDispatch();
 
@@ -61,11 +65,7 @@ function Book({ id, title, subjects, resources }: BookComponentInterface) {
 		<div style={{ width: 340, margin: 'auto' }}>
 			<Card shadow="lg">
 				<Card.Section>
-					<Image
-						src={image}
-						className="h-auto p-6"
-						alt="Book image"
-					/>
+					<Image src={image} className="p-6" alt="Book image" />
 				</Card.Section>
 				<Text className="my-[20px] font-bold text-lg">{title}</Text>
 

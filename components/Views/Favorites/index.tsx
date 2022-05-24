@@ -1,10 +1,11 @@
-import { Title, Text, Space, Button } from '@mantine/core';
 import { useEffect, useState } from 'react';
-import { BookInterface } from '../../../utils/interfaces';
-
-import { useAppSelector } from '../../../hooks/redux';
-import Book from '../../Book';
 import { useRouter } from 'next/router';
+import { useAppSelector } from '../../../hooks/redux';
+
+import { Title, Text, Button } from '@mantine/core';
+
+import { BookInterface } from '../../../types/interfaces';
+import Book from '../../Book';
 
 function Favourites() {
 	const favorites = useAppSelector((state: any) => state.books.favorites);
@@ -28,9 +29,9 @@ function Favourites() {
 	}, []);
 
 	return (
-		<div className="w-full">
+		<div className="w-full pl-[15%] pt-[3%]">
 			<Title order={1} p="md">
-				Your Favorites books
+				Your Favorites books: {books.length}
 			</Title>
 			{books?.length > 0 ? (
 				<div className="grid grid-cols-4 gap-2 mx-auto mt-[50px]">

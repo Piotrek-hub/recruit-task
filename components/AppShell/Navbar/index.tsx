@@ -1,11 +1,11 @@
 import { Navbar } from '@mantine/core';
-import NavbarOption from './NavbarOption';
-
 import { BiBook, BiStar } from 'react-icons/bi';
+
+import NavbarOption from './NavbarOption';
 
 function Nav() {
 	return (
-		<Navbar className="h-fill w-[13%]" p="sm">
+		<Navbar fixed className="h-screen w-[15%]" p="sm">
 			<Navbar.Section grow mt="xs">
 				<NavbarOption
 					icon={<BiBook />}
