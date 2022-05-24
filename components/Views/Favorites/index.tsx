@@ -1,13 +1,16 @@
-import { Title, Text } from '@mantine/core';
+import { Title, Text, Space, Button } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { BookInterface } from '../../../utils/interfaces';
 
 import { useAppSelector } from '../../../hooks/redux';
 import Book from '../../Book';
+import { useRouter } from 'next/router';
 
 function Favourites() {
 	const favorites = useAppSelector((state: any) => state.books.favorites);
 	const [books, setBooks] = useState<Array<BookInterface>>([]);
+
+	const router = useRouter();
 
 	useEffect(() => {
 		const books: BookInterface[] = [];
@@ -15,18 +18,14 @@ function Favourites() {
 			const book = await fetch(
 				`https://gnikdroy.pythonanywhere.com/api/book/${id}`
 			).then((resp) => resp.json());
+
 			books.push(book);
+
 			if (books.length == favorites.length) {
 				setBooks(books);
 			}
 		});
 	}, []);
-
-	useEffect(() => {
-		console.log(books);
-	}, [books]);
-
-	const fetchBooks = () => {};
 
 	return (
 		<div className="w-full">
@@ -46,7 +45,20 @@ function Favourites() {
 					))}
 				</div>
 			) : (
-				<Text className="ml-10">You dont have any favorites yet</Text>
+				<div className="ml-10">
+					<Text>You dont have any favorites yet</Text>
+					<Button
+						className="mt-2"
+						variant="light"
+						color="grape"
+						compact
+						onClick={() => {
+							router.push('/books');
+						}}
+					>
+						<Text underline>Explore books here</Text>
+					</Button>
+				</div>
 			)}
 		</div>
 	);
