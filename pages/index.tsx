@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+
 import Shell from '../components/AppShell';
 
 const Home: NextPage = () => {
@@ -14,7 +15,9 @@ const Home: NextPage = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<Shell />
+			<Shell>
+				<p>Welcome</p>
+			</Shell>
 		</div>
 	);
 };

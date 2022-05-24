@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Button, Input, Title, Text } from '@mantine/core';
 import { BiSearch } from 'react-icons/bi';
 
-import { getBooks } from '../../../utils/api';
+import { fetchBooks } from '../../../utils/api';
 import { BookInterface } from '../../../utils/interfaces';
 
 import Book from '../Book';
@@ -14,10 +14,10 @@ function Books() {
 
 	useEffect(() => {
 		handleSearch();
-	}, []);
+	}, [input]);
 
 	const handleSearch = () => {
-		getBooks(input).then((books: BookInterface[]) => setBooks(books));
+		fetchBooks(input).then((books: BookInterface[]) => setBooks(books));
 	};
 
 	return (
@@ -40,7 +40,7 @@ function Books() {
 					size="md"
 					color="teal"
 					variant="outline"
-					onClick={handleSearch}
+					// onClick={handleSearch}
 				>
 					Search
 				</Button>
@@ -59,6 +59,7 @@ function Books() {
 			<div className="grid grid-cols-4 gap-2 mx-auto mt-[50px]">
 				{books?.map((book: BookInterface) => (
 					<Book
+						key={book.id}
 						id={book.id}
 						title={book.title}
 						subjects={book.subjects}

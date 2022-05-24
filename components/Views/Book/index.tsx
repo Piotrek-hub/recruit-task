@@ -21,7 +21,9 @@ function Book({
 	resources,
 }: BookComponentInterface) {
 	const [image, setImage] = useState<string>();
+	const [readUri, setReadUri] = useState<string>();
 	const dispatch = useDispatch();
+
 	useEffect(() => {
 		const uris = resources.filter(
 			(resource) =>
@@ -31,6 +33,26 @@ function Book({
 			setImage(uris[0].uri);
 		} else {
 			setImage(
+				'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled.png'
+			);
+		}
+	}, []);
+
+	useEffect(() => {
+		console.log(title, resources);
+		const uris = resources.filter(
+			(resource) =>
+				(resource.type.includes('text/html') ||
+					resource.type.includes('text/plain')) &&
+				(resource.uri.includes('.htm') || resource.uri.includes('.txt'))
+		);
+		if (uris.length > 1) {
+			if (uris[0].uri.includes('.htm')) setReadUri(uris[0].uri);
+			else setReadUri(uris[1].uri);
+		} else if (uris.length === 1) {
+			setReadUri(uris[0].uri);
+		} else {
+			setReadUri(
 				'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled.png'
 			);
 		}
@@ -54,15 +76,21 @@ function Book({
 
 				<div>
 					{subjects.map((subject: string) => (
-						<Badge color="pink" variant="light">
+						<Badge key={subject} color="pink" variant="light">
 							{subject}
 						</Badge>
 					))}
 				</div>
 				<div className="mt-6">
-					<Button variant="outline" color="blue" className="w-1/2">
-						Read
-					</Button>
+					<a href={readUri} target="_blank">
+						<Button
+							variant="outline"
+							color="blue"
+							className="w-1/2"
+						>
+							Read
+						</Button>
+					</a>
 					<Button
 						variant="light"
 						color="red"

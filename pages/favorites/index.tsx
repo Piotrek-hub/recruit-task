@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Shell from '../../components/AppShell';
 
-import FavoritesComponent from '../../components/Pages/Favorites';
+import FavoritesComponent from '../../components/Views/Favorites';
 
 const Favorites: NextPage = () => {
 	return (

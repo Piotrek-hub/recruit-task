@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Shell from '../../components/AppShell';
 
-import BooksComponent from '../../components/Pages/Books';
+import BooksComponent from '../../components/Views/Books';
 
 const Books: NextPage = () => {
 	return (
