@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { BookInterface } from '../../../utils/interfaces';
 
 import { useAppSelector } from '../../../hooks/redux';
-import Book from '../Book';
+import Book from '../../Book';
 
 function Favourites() {
 	const favorites = useAppSelector((state: any) => state.books.favorites);

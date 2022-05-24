@@ -4,7 +4,7 @@ import type { RootState } from './store';
 import { BookInterface } from '../utils/interfaces';
 
 interface BookSliceInterface {
-	favorites: string[];
+	favorites: number[];
 	books: BookInterface[];
 }
 

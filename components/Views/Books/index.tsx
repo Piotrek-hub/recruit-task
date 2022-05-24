@@ -6,7 +6,7 @@ import { BiSearch } from 'react-icons/bi';
 import { fetchBooks } from '../../../utils/api';
 import { BookInterface } from '../../../utils/interfaces';
 
-import Book from '../Book';
+import Book from '../../Book';
 
 function Books() {
 	const [books, setBooks] = useState<BookInterface[]>();

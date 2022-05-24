@@ -1,10 +1,10 @@
-import { Card, Image, Group, Text, Badge, Button } from '@mantine/core';
+import { Card, Image, Text, Badge, Button } from '@mantine/core';
 
 import { useEffect, useState } from 'react';
 import { BiStar } from 'react-icons/bi';
-import { Resource } from '../../../utils/interfaces';
-import { useDispatch } from 'react-redux';
-import { addFavorites } from '../../../redux/booksSlice';
+import { Resource } from '../../utils/interfaces';
+import { addFavorites } from '../../redux/booksSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 interface BookComponentInterface {
 	id: number;
 	title: string;
@@ -13,16 +13,11 @@ interface BookComponentInterface {
 	resources: Resource[];
 }
 
-function Book({
-	id,
-	title,
-	subjects,
-	languages,
-	resources,
-}: BookComponentInterface) {
+function Book({ id, title, subjects, resources }: BookComponentInterface) {
 	const [image, setImage] = useState<string>();
 	const [readUri, setReadUri] = useState<string>();
-	const dispatch = useDispatch();
+	const favorites = useAppSelector((state) => state.books.favorites);
+	const dispatch = useAppDispatch();
 
 	useEffect(() => {
 		const uris = resources.filter(
@@ -39,7 +34,6 @@ function Book({
 	}, []);
 
 	useEffect(() => {
-		console.log(title, resources);
 		const uris = resources.filter(
 			(resource) =>
 				(resource.type.includes('text/html') ||
@@ -59,7 +53,8 @@ function Book({
 	}, []);
 
 	const addToFavorites = () => {
-		dispatch(addFavorites(id));
+		if (!favorites.includes(id)) dispatch(addFavorites(id));
+		else console.log('Book already in favorites');
 	};
 
 	return (
