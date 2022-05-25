@@ -39,7 +39,6 @@ function NavbarOption({ icon, color, label, link }: NavbarOptionProps) {
 				<ThemeIcon color={color} variant="light">
 					{icon}
 				</ThemeIcon>
-
 				<Text size="sm">{label}</Text>
 			</Group>
 		</UnstyledButton>

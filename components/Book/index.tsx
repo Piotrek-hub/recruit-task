@@ -54,7 +54,7 @@ function Book({ id, title, subjects, resources }: BookComponentInterface) {
 	};
 
 	return (
-		<div style={{ width: 340, margin: 'auto' }}>
+		<div className="w-[340px] m-auto xs:w-[300px]">
 			<Card shadow="lg">
 				<Card.Section>
 					<Image src={image} className="p-6" alt="Book image" />

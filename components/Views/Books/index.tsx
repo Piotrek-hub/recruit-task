@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { Button, Input, Title, Text, Pagination, Loader } from '@mantine/core';
+import { useViewportSize } from '@mantine/hooks';
 import { BiSearch } from 'react-icons/bi';
 
 import { BookInterface } from '../../../types/interfaces';
@@ -14,6 +15,8 @@ function Books() {
 
 	const [activePage, setPage] = useState(1);
 	const [isDataLoaded, setDataLoaded] = useState<boolean>(false);
+
+	const { width } = useViewportSize();
 
 	useEffect(() => {
 		fetch(
@@ -44,15 +47,15 @@ function Books() {
 	};
 
 	return (
-		<div className="w-full pl-[15%] pt-[3%]">
-			<Title order={1} p="md">
+		<div className="w-full lg:pl-[15%] lg:pt-[3%] xs:px-[20px] xs:pt-[50px]">
+			<Title order={width > 700 ? 1 : 2} className="py-[25px]">
 				Let&apos;s explore some books
 			</Title>
 			<div className="flex w-fill">
 				<Input
 					icon={<BiSearch />}
 					placeholder="Book's Name"
-					size="md"
+					size={width > 700 ? 'md' : 'sm'}
 					className="w-full"
 					value={input}
 					onChange={(e: { target: { value: string } }) => {
@@ -61,7 +64,7 @@ function Books() {
 				/>
 
 				<Button
-					size="md"
+					size={width > 700 ? 'md' : 'sm'}
 					color="teal"
 					variant="outline"
 					onClick={handleSearch}
@@ -101,9 +104,8 @@ function Books() {
 							onChange={handlePaginationChange}
 							total={6578}
 							color="dark"
-							size="xl"
+							size={width > 600 ? 'lg' : 'xs'}
 							radius="xs"
-							siblings={2}
 						/>
 					</div>
 				</>

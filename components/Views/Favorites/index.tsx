@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useAppSelector } from '../../../hooks/redux';
 
 import { Title, Text, Button } from '@mantine/core';
+import { useViewportSize } from '@mantine/hooks';
 
 import { BookInterface } from '../../../types/interfaces';
 import Book from '../../Book';
@@ -12,6 +13,8 @@ function Favourites() {
 	const [books, setBooks] = useState<Array<BookInterface>>([]);
 
 	const router = useRouter();
+
+	const { width } = useViewportSize();
 
 	useEffect(() => {
 		const books: BookInterface[] = [];
@@ -29,8 +32,8 @@ function Favourites() {
 	}, [favorites]);
 
 	return (
-		<div className="w-full pl-[15%] pt-[3%]">
-			<Title order={1} p="md">
+		<div className="w-full lg:pl-[15%] lg:pt-[3%] xs:px-[20px] xs:pt-[50px] ">
+			<Title order={width > 700 ? 1 : 2} className="py-[25px]">
 				Your Favorites books: {books.length}
 			</Title>
 			{books?.length > 0 ? (
@@ -50,19 +53,19 @@ function Favourites() {
 					)}
 				</div>
 			) : (
-				<div className="ml-10">
+				<div className="">
 					<Text>You dont have any favorites yet</Text>
-					<Button
-						className="mt-2"
-						variant="light"
+
+					<Text
+						className="cursor-pointer"
 						color="grape"
-						compact
 						onClick={() => {
 							router.push('/books');
 						}}
+						underline
 					>
-						<Text underline>Explore books here</Text>
-					</Button>
+						Explore books here
+					</Text>
 				</div>
 			)}
 		</div>

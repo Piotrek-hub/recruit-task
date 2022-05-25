@@ -5,7 +5,11 @@ import NavbarOption from './NavbarOption';
 
 function Nav() {
 	return (
-		<Navbar fixed className="h-screen w-[15%]" p="sm">
+		<Navbar
+			fixed
+			className="lg:h-screen lg:w-[14.5%] lg:block md:hidden sm:hidden xs:hidden"
+			p="sm"
+		>
 			<Navbar.Section grow mt="xs">
 				<NavbarOption
 					icon={<BiBook />}
