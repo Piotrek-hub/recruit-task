@@ -1,7 +1,10 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
+import { Text } from '@mantine/core';
+
 import Shell from '../components/AppShell';
+import Link from 'next/link';
 
 const Home: NextPage = () => {
 	return (
@@ -16,7 +19,24 @@ const Home: NextPage = () => {
 			</Head>
 
 			<Shell>
-				<p>Welcome</p>
+				<div className="w-full lg:pl-[15%] lg:pt-[3%] xs:px-[20px] xs:pt-[50px]">
+					<Text size="xl">Welcome to book store</Text>
+					<Text size="md">This is recruit task</Text>
+					<Text size="sm" color={'cyan'}>
+						Piotr Gałka -
+						https://github.com/Piotrek-hub/recruit-task
+					</Text>
+					<Link href="/books">
+						<Text underline className="cursor-pointer">
+							/books
+						</Text>
+					</Link>
+					<Link href="/favorites">
+						<Text underline className="cursor-pointer">
+							/favorites
+						</Text>
+					</Link>
+				</div>
 			</Shell>
 		</div>
 	);
