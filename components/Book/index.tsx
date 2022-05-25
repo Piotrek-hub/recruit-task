@@ -1,20 +1,12 @@
 import { useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { addFavorites } from '../../redux/booksSlice';
+import { addFavorites, removeFavoites } from '../../redux/booksSlice';
 
 import { Card, Image, Text, Badge, Button } from '@mantine/core';
 import { BiStar } from 'react-icons/bi';
 
-import { Resource } from '../../types/interfaces';
-
-interface BookComponentInterface {
-	id: number;
-	title: string;
-	subjects: string[];
-	languages: string[];
-	resources: Resource[];
-}
+import { BookComponentInterface } from '../../types/interfaces';
 
 function Book({ id, title, subjects, resources }: BookComponentInterface) {
 	const [image, setImage] = useState<string>();
@@ -56,9 +48,9 @@ function Book({ id, title, subjects, resources }: BookComponentInterface) {
 		}
 	}, []);
 
-	const addToFavorites = () => {
+	const handleFavoritesButton = () => {
 		if (!favorites.includes(id)) dispatch(addFavorites(id));
-		else console.log('Book already in favorites');
+		else dispatch(removeFavoites(id));
 	};
 
 	return (
@@ -77,7 +69,7 @@ function Book({ id, title, subjects, resources }: BookComponentInterface) {
 					))}
 				</div>
 				<div className="mt-6">
-					<a href={readUri} target="_blank">
+					<a href={readUri} target="_blank" rel="noreferrer">
 						<Button
 							variant="outline"
 							color="blue"
@@ -90,7 +82,7 @@ function Book({ id, title, subjects, resources }: BookComponentInterface) {
 						variant="light"
 						color="red"
 						className="w-1/3 ml-10"
-						onClick={addToFavorites}
+						onClick={handleFavoritesButton}
 					>
 						<BiStar />
 					</Button>

@@ -46,7 +46,7 @@ function Books() {
 	return (
 		<div className="w-full pl-[15%] pt-[3%]">
 			<Title order={1} p="md">
-				Let's explore some books
+				Let&apos;s explore some books
 			</Title>
 			<div className="flex w-fill">
 				<Input
@@ -83,9 +83,8 @@ function Books() {
 				<>
 					<div className="container grid grid-cols-4 gap-2 mx-auto mt-[50px] space-y-2 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1">
 						{books?.map((book: BookInterface) => (
-							<div className="w-full">
+							<div className="w-full" key={book.id}>
 								<Book
-									key={book.id}
 									id={book.id}
 									title={book.title}
 									subjects={book.subjects}

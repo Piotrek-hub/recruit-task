@@ -26,7 +26,7 @@ function Favourites() {
 				setBooks(books);
 			}
 		});
-	}, []);
+	}, [favorites]);
 
 	return (
 		<div className="w-full pl-[15%] pt-[3%]">
@@ -34,16 +34,20 @@ function Favourites() {
 				Your Favorites books: {books.length}
 			</Title>
 			{books?.length > 0 ? (
-				<div className="grid grid-cols-4 gap-2 mx-auto mt-[50px]">
-					{books?.map((book: BookInterface) => (
-						<Book
-							id={book.id}
-							title={book.title}
-							subjects={book.subjects}
-							languages={book.languages}
-							resources={book.resources}
-						/>
-					))}
+				<div className="container grid grid-cols-4 gap-2 mx-auto mt-[50px] space-y-2 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 ">
+					{books?.map(
+						(book: BookInterface) =>
+							book !== undefined && (
+								<Book
+									key={book.id}
+									id={book.id}
+									title={book.title}
+									subjects={book.subjects}
+									languages={book.languages}
+									resources={book.resources}
+								/>
+							)
+					)}
 				</div>
 			) : (
 				<div className="ml-10">

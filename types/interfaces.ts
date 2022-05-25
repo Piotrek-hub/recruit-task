@@ -1,10 +1,3 @@
-export interface GutenbergResponse {
-	count: number;
-	next: string;
-	previous: null;
-	results: BookInterface[];
-}
-
 export interface BookInterface {
 	id: number;
 	type: ResultType;
@@ -41,4 +34,12 @@ export interface Resource {
 
 export enum ResultType {
 	Text = 'Text',
+}
+
+export interface BookComponentInterface {
+	id: number;
+	title: string;
+	subjects: string[];
+	languages: string[];
+	resources: Resource[];
 }

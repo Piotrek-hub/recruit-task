@@ -20,10 +20,17 @@ export const booksSlice = createSlice({
 		addFavorites: (state, action: any) => {
 			state.favorites = [...state.favorites, action.payload];
 		},
+		removeFavoites: (state, action: any) => {
+			state.favorites = [
+				...state.favorites.filter(
+					(id: number) => id !== action.payload
+				),
+			];
+		},
 	},
 });
 
-export const { addFavorites } = booksSlice.actions;
+export const { addFavorites, removeFavoites } = booksSlice.actions;
 
 export const selectFavorites = (state: RootState) => state.books.favorites;
 
